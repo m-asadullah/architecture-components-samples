@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
+    namespace 'com.example.android.persistence'
     compileSdkVersion build_versions.compile_sdk
 
     defaultConfig {
@@ -23,7 +24,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    namespace 'com.example.android.persistence'
+    buildFeatures {
+        buildConfig = true
+    }
 }
 
 dependencies {
