@@ -13,19 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-kapt'
-apply plugin: 'kotlin-parcelize'
+plugins {
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.kotlin.parcelize)
+}
 
 android {
-    compileSdkVersion build_versions.compile_sdk
+    compileSdkVersion libs.versions.compileSdk.get().toInteger()
 
     defaultConfig {
         applicationId "com.example.android.observability"
-        minSdkVersion 21
-        targetSdkVersion build_versions.target_sdk
+        minSdkVersion libs.versions.minSdk.get().toInteger()
+        targetSdkVersion libs.versions.targetSdk.get().toInteger()
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -46,55 +47,57 @@ android {
     namespace 'com.example.android.observability'
     buildFeatures {
         buildConfig = true
+        viewBinding true
     }
 }
 
 dependencies {
-    implementation deps.app_compat
-    implementation deps.fragment.runtime_ktx
-    implementation deps.material
+    implementation libs.androidx.activity.ktx
+    implementation libs.androidx.appcompat
+    implementation libs.androidx.fragment
+    implementation libs.google.android.material
 
     // Architecture components
-    implementation deps.lifecycle.runtime
-    kapt deps.lifecycle.compiler
-    implementation deps.room.runtime
-    kapt deps.room.compiler
-    implementation deps.room.rxjava2
+    implementation libs.androidx.lifecycle.runtime
+    kapt libs.androidx.lifecycle.compiler
+    implementation libs.androidx.room.runtime
+    kapt libs.androidx.room.compiler
+    implementation libs.androidx.room.rxjava2
 
     // RxJava
-    implementation deps.rx_android
-    implementation deps.rxjava2
+    implementation libs.io.reactivex.rxjava2.rxandroid
+    implementation libs.io.reactivex.rxjava2.rxjava
 
     // Kotlin
-    implementation deps.kotlin.stdlib
+    implementation libs.jetbrains.kotlin.stdlib.jdk7
 
     // Dependencies for local unit tests
-    testImplementation deps.junit
-    testImplementation deps.mockito.all
-    testImplementation deps.hamcrest
-    testImplementation deps.arch_core.testing
-    testImplementation deps.kotlin.stdlib
-    testImplementation deps.kotlin.test
+    testImplementation libs.junit
+    testImplementation libs.mockito.all
+    testImplementation libs.hamcrest.all
+    testImplementation libs.androidx.arch.core.testing
+    testImplementation libs.jetbrains.kotlin.stdlib.jdk7
+    testImplementation libs.jetbrains.kotlin.test.junit
 
     // Android Testing Support Library's runner and rules
-    androidTestImplementation deps.atsl.ext_junit
-    androidTestImplementation deps.atsl.runner
-    androidTestImplementation deps.atsl.rules
-    androidTestImplementation deps.room.testing
-    androidTestImplementation deps.arch_core.testing
+    androidTestImplementation libs.androidx.test.ext.junit.ktx
+    androidTestImplementation libs.androidx.test.runner
+    androidTestImplementation libs.androidx.test.rules
+    androidTestImplementation libs.androidx.room.testing
+    androidTestImplementation libs.androidx.arch.core.testing
 
     // Dependencies for Android unit tests
-    androidTestImplementation deps.junit
-    androidTestImplementation deps.mockito.core, { exclude group: 'net.bytebuddy' }
-    androidTestImplementation deps.dexmaker
+    androidTestImplementation libs.junit
+    androidTestImplementation libs.mockito.core, { exclude group: 'net.bytebuddy' }
+    androidTestImplementation libs.linkedin.dexmaker.mockito
 
     // Espresso UI Testing
-    androidTestImplementation deps.espresso.core
-    androidTestImplementation deps.espresso.contrib
-    androidTestImplementation deps.espresso.intents
+    androidTestImplementation libs.androidx.test.espresso.core
+    androidTestImplementation libs.androidx.test.espresso.contrib
+    androidTestImplementation libs.androidx.test.espresso.intents
 
     // Resolve conflicts between main and test APK:
-    androidTestImplementation deps.annotations
-    androidTestImplementation deps.app_compat
-    androidTestImplementation deps.material
+    androidTestImplementation libs.androidx.annotation
+    androidTestImplementation libs.androidx.appcompat
+    androidTestImplementation libs.google.android.material
 }
