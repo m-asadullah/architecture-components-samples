@@ -97,7 +97,7 @@ dependencies {
     androidTestImplementation libs.androidx.test.espresso.intents
 
     // Resolve conflicts between main and test APK:
-    androidTestImplementation libs.androidx.annotation
+    implementation libs.androidx.annotation
     androidTestImplementation libs.androidx.appcompat
     androidTestImplementation libs.google.android.material
 }
