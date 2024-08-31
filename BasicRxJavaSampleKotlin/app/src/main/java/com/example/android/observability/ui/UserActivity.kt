@@ -41,7 +41,8 @@ class UserActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_user)
+        binding = ActivityUserBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         viewModelFactory = Injection.provideViewModelFactory(this)
         binding.updateUserButton.setOnClickListener { updateUserName() }
