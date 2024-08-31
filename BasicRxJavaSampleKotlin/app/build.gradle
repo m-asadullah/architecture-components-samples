@@ -17,7 +17,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
-apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-parcelize'
 
 android {
     compileSdkVersion build_versions.compile_sdk
@@ -44,6 +44,9 @@ android {
         jvmTarget = "1.8"
     }
     namespace 'com.example.android.observability'
+    buildFeatures {
+        buildConfig = true
+    }
 }
 
 dependencies {
