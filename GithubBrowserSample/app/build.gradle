@@ -13,40 +13,45 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-kapt'
-
-apply plugin: 'kotlin-allopen'
-apply plugin: 'androidx.navigation.safeargs.kotlin'
+plugins {
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.kotlin.allopen)
+    //alias(libs.plugins.androidx.navigation.safeargs.kotlin)
+}
 
 allOpen {
     // allows mocking for classes w/o directly opening them for release builds
     annotation 'com.android.example.github.testing.OpenClass'
 }
 android {
-    compileSdkVersion build_versions.compile_sdk
+    namespace 'com.android.example.github'
+    compileSdkVersion libs.versions.compileSdk.get().toInteger()
+
     defaultConfig {
         applicationId "com.android.example.github"
-        minSdkVersion 21
-        targetSdkVersion build_versions.target_sdk
+        minSdkVersion libs.versions.minSdk.get().toInteger()
+        targetSdkVersion libs.versions.targetSdk.get().toInteger()
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "com.android.example.github.util.GithubTestRunner"
     }
     buildTypes {
-          debug {
-              testCoverageEnabled !project.hasProperty('android.injected.invoked.from.ide')
-          }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+        debug {
+            enableUnitTestCoverage = true
+            enableAndroidTestCoverage = true
+        }
     }
-    dataBinding {
-        enabled = true
+    buildFeatures {
+        dataBinding = true
+        //navigation = true
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -61,68 +66,69 @@ android {
     lintOptions {
         lintConfig rootProject.file('lint.xml')
         disable 'InvalidPackage'
+        lintConfig file('lint.xml')
     }
 }
 
 dependencies {
-    implementation deps.app_compat
-    implementation deps.recyclerview
-    implementation deps.cardview
-    implementation deps.material
-    implementation deps.core_ktx
-    implementation deps.transition
+    implementation libs.androidx.appcompat
+    implementation libs.androidx.recyclerview
+    implementation libs.androidx.cardview
+    implementation libs.google.android.material
+    implementation libs.androidx.core.ktx
+    implementation libs.androidx.transition
 
-    implementation deps.fragment.testing
-    implementation deps.atsl.core
+    implementation libs.androidx.fragment.testing
+    implementation libs.androidx.test.core
 
-    implementation deps.navigation.fragment_ktx
-    implementation deps.room.runtime
-    implementation deps.lifecycle.livedata_ktx
-    implementation deps.lifecycle.runtime
-    implementation deps.lifecycle.java8
-    implementation deps.retrofit.runtime
-    implementation deps.retrofit.gson
-    implementation deps.glide.runtime
+    implementation libs.androidx.navigation.fragment.ktx
+    implementation libs.androidx.room.runtime
+    implementation libs.androidx.lifecycle.livedata.ktx
+    implementation libs.androidx.lifecycle.runtime
+    implementation libs.androidx.lifecycle.common.java8
+    implementation libs.squareup.retrofit2.retrofit
+    implementation libs.squareup.retrofit2.converter.gson
+    implementation libs.github.bumptech.glide.compiler
 
-    implementation deps.dagger.runtime
-    implementation deps.dagger.android
-    implementation deps.dagger.android_support
-    implementation deps.constraint_layout
-    implementation deps.kotlin.stdlib
+    implementation libs.google.dagger.compiler
+    implementation libs.google.dagger.android.processor
+    implementation libs.google.dagger.android.support
+    implementation libs.androidx.constraintlayout
+    implementation libs.jetbrains.kotlin.stdlib.jdk7
 
-    implementation deps.timber
+    implementation libs.jakewharton.timber
 
-    kapt deps.dagger.android_support_compiler
-    kapt deps.dagger.compiler
-    kapt deps.room.compiler
-    kapt deps.lifecycle.compiler
+    kapt libs.google.dagger.android.support
+    kapt libs.google.dagger.compiler
+    kapt libs.androidx.room.compiler
+    kapt libs.androidx.lifecycle.compiler
 
-    testImplementation deps.atsl.core
-    testImplementation deps.junit
-    testImplementation deps.mock_web_server
-    testImplementation deps.arch_core.testing
-    testImplementation deps.mockito.core
+    testImplementation libs.androidx.test.core
+    testImplementation libs.junit
+    testImplementation libs.squareup.okhttp3.mockwebserver
+    testImplementation libs.androidx.arch.core.testing
+    testImplementation libs.mockito.core
 
-    androidTestImplementation deps.atsl.core
-    androidTestImplementation deps.atsl.ext_junit
-    androidTestImplementation deps.atsl.runner
-    androidTestImplementation deps.atsl.rules
+    androidTestImplementation libs.androidx.test.core
+    androidTestImplementation libs.androidx.test.ext.junit.ktx
+    androidTestImplementation libs.androidx.test.runner
+    androidTestImplementation libs.androidx.test.rules
 
-    androidTestImplementation deps.app_compat
-    androidTestImplementation deps.recyclerview
-    androidTestImplementation deps.cardview
-    androidTestImplementation deps.material
+    androidTestImplementation libs.androidx.appcompat
+    androidTestImplementation libs.androidx.recyclerview
+    androidTestImplementation libs.androidx.cardview
+    androidTestImplementation libs.google.android.material
 
-    androidTestImplementation deps.espresso.core
-    androidTestImplementation deps.espresso.contrib
+    androidTestImplementation libs.androidx.test.espresso.core
+    androidTestImplementation libs.androidx.test.espresso.contrib
 
-    androidTestImplementation deps.arch_core.testing
-    androidTestImplementation deps.mockito.core
-    androidTestImplementation deps.mockito.android
+    androidTestImplementation libs.androidx.arch.core.testing
+    androidTestImplementation libs.mockito.core
+    androidTestImplementation libs.mockito.android
 }
 
 // we need all open to run tests which we enable only for debug builds.
-project.tasks.whenTaskAdded {
+project.tasks.configureEach {
     if (it.name == "testReleaseUnitTest") {
         it.enabled = false
     }
