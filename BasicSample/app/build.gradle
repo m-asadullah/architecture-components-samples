@@ -19,6 +19,7 @@ plugins {
 }
 
 android {
+    namespace 'com.example.android.persistence'
     compileSdkVersion libs.versions.compileSdk.get().toInteger()
 
     defaultConfig {
@@ -47,18 +48,20 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    dataBinding {
-        enabled = true
-    }
-    productFlavors {
+
+    buildFeatures {
+        dataBinding = true
+        viewBinding = true
+        buildConfig = true
     }
 
+    productFlavors {
+    }
 
     compileOptions {
         targetCompatibility 1.8
         sourceCompatibility 1.8
     }
-    namespace 'com.example.android.persistence'
 }
 
 dependencies {
@@ -87,7 +90,7 @@ dependencies {
     androidTestImplementation libs.androidx.test.espresso.intents
 
     // Resolve conflicts between main and test APK:
-    androidTestImplementation libs.androidx.annotation
+    implementation libs.androidx.annotation
     androidTestImplementation libs.androidx.appcompat
     androidTestImplementation libs.google.android.material
 }
