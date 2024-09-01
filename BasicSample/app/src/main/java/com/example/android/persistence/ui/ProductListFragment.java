@@ -48,7 +48,7 @@ public class ProductListFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-            @Nullable Bundle savedInstanceState) {
+                             @Nullable Bundle savedInstanceState) {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.list_fragment, container, false);
 
         mProductAdapter = new ProductAdapter(mProductClickCallback);
@@ -65,7 +65,10 @@ public class ProductListFragment extends Fragment {
 
         mBinding.productsSearchBtn.setOnClickListener(v -> {
             Editable query = mBinding.productsSearchBox.getText();
-            viewModel.setQuery(query);
+            if (query != null) {
+                String string = query.toString();
+                viewModel.setQuery(string);
+            }
         });
 
         subscribeUi(viewModel.getProducts());
