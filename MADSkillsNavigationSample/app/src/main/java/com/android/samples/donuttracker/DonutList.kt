@@ -69,7 +69,7 @@ class DonutList : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         return DonutListBinding.inflate(inflater, container, false).root
     }
 }

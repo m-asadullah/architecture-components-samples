@@ -104,7 +104,7 @@ class DonutEntryDialogFragment : BottomSheetDialogFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         return DonutEntryDialogBinding.inflate(inflater, container, false).root
     }
 }
