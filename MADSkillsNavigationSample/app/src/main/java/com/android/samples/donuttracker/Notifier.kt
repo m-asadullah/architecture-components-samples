@@ -15,6 +15,7 @@
  */
 package com.android.samples.donuttracker
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -24,6 +25,7 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import com.android.samples.donutcreator.R
 
 /**
  * Utility class for posting notifications.
@@ -49,6 +51,7 @@ object Notifier {
         }
     }
 
+    @SuppressLint("MissingPermission")
     fun postNotification(id: Long, context: Context, intent: PendingIntent) {
         val builder = NotificationCompat.Builder(context, channelId)
         builder.setContentTitle(context.getString(R.string.deepLinkNotificationTitle))
