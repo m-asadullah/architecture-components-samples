@@ -32,7 +32,6 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
-import org.mockito.Mockito.`when`
 import org.mockito.Mockito.any
 import org.mockito.Mockito.anyString
 import org.mockito.Mockito.mock
@@ -40,6 +39,7 @@ import org.mockito.Mockito.never
 import org.mockito.Mockito.reset
 import org.mockito.Mockito.verify
 import org.mockito.Mockito.verifyNoMoreInteractions
+import org.mockito.Mockito.`when`
 
 @RunWith(JUnit4::class)
 class UserViewModelTest {
@@ -136,7 +136,7 @@ class UserViewModelTest {
         userViewModel.setLogin("foo")
         userViewModel.setLogin(null)
         userViewModel.user.observeForever(observer)
-        verify(observer).onChanged(null)
+        verify(observer).onChanged(Resource.loading(null))
     }
 
     @Test
@@ -145,7 +145,7 @@ class UserViewModelTest {
         userViewModel.setLogin("foo")
         userViewModel.setLogin(null)
         userViewModel.repositories.observeForever(observer)
-        verify(observer).onChanged(null)
+        verify(observer).onChanged(Resource.loading(null))
     }
 
     @Test

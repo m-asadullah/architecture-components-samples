@@ -122,7 +122,7 @@ class RepoViewModelTest {
         val observer2 = mock<Observer<Resource<List<Contributor>>>>()
         repoViewModel.repo.observeForever(observer1)
         repoViewModel.contributors.observeForever(observer2)
-        verify(observer1).onChanged(null)
-        verify(observer2).onChanged(null)
+        verify(observer1).onChanged(Resource.loading(null))
+        verify(observer2).onChanged(Resource.loading(null))
     }
 }
