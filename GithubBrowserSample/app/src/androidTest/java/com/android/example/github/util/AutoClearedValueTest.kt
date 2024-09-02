@@ -21,9 +21,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
+import androidx.test.core.app.ActivityScenario
+import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
-import androidx.test.rule.ActivityTestRule
 import com.android.example.github.testing.SingleFragmentActivity
 import com.android.example.github.util.DataBindingIdlingResourceTest.TestFragment
 import org.hamcrest.MatcherAssert.assertThat
@@ -41,38 +42,48 @@ class AutoClearedValueTest {
 
     @Rule
     @JvmField
-    val activityRule = ActivityTestRule(SingleFragmentActivity::class.java, true, true)
+    val activityRule = ActivityScenarioRule(SingleFragmentActivity::class.java)
 
     private lateinit var testFragment: TestFragment
 
     @Before
     fun init() {
-        testFragment = TestFragment()
-        activityRule.activity.setFragment(testFragment)
+        ActivityScenario.launch(SingleFragmentActivity::class.java).onActivity { activity ->
+            testFragment = TestFragment()
+            activity.setFragment(testFragment)
+        }
         InstrumentationRegistry.getInstrumentation().waitForIdleSync()
     }
 
     @Test
     fun clearOnReplace() {
-        activityRule.activity.replaceFragment(TestFragment())
+        ActivityScenario.launch(SingleFragmentActivity::class.java).onActivity { activity ->
+            activity.replaceFragment(TestFragment())
+        }
         InstrumentationRegistry.getInstrumentation().waitForIdleSync()
         try {
             testFragment.testValue
             Assert.fail("should throw if accessed when not set")
         } catch (ex: IllegalStateException) {
+            // Expected exception
         }
     }
 
     @Test
     fun clearOnReplaceBackStack() {
-        activityRule.activity.replaceFragment(TestFragment(), true)
+        ActivityScenario.launch(SingleFragmentActivity::class.java).onActivity { activity ->
+            activity.replaceFragment(TestFragment(), true)
+        }
         InstrumentationRegistry.getInstrumentation().waitForIdleSync()
         try {
             testFragment.testValue
             Assert.fail("should throw if accessed when not set")
         } catch (ex: IllegalStateException) {
+            // Expected exception
         }
-        activityRule.activity.supportFragmentManager.popBackStack()
+        ActivityScenario.launch(SingleFragmentActivity::class.java).onActivity { activity ->
+            activity.supportFragmentManager.popBackStack()
+        }
         InstrumentationRegistry.getInstrumentation().waitForIdleSync()
         assertThat(testFragment.testValue, `is`("foo"))
     }
@@ -97,8 +108,10 @@ class AutoClearedValueTest {
     class TestFragment : Fragment() {
         var testValue by autoCleared<String>()
 
-        override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                savedInstanceState: Bundle?): View? {
+        override fun onCreateView(
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
+        ): View? {
             testValue = "foo"
             return View(context)
         }
