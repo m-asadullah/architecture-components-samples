@@ -24,7 +24,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.android.samples.donuttracker.databinding.DonutEntryDialogBinding
+import com.android.samples.donutcreator.R
+import com.android.samples.donutcreator.databinding.DonutEntryDialogBinding
 import com.android.samples.donuttracker.storage.DonutDatabase
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 

@@ -22,12 +22,10 @@ import android.view.ViewGroup
 import androidx.core.app.NotificationManagerCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.observe
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
-import com.android.samples.donuttracker.databinding.DonutListBinding
+import com.android.samples.donutcreator.databinding.DonutListBinding
 import com.android.samples.donuttracker.storage.DonutDatabase
-import kotlinx.android.synthetic.main.donut_list.*
 
 /**
  * Fragment containing the RecyclerView which shows the current list of donuts being tracked.
@@ -58,7 +56,7 @@ class DonutList : Fragment() {
             adapter.submitList(donuts)
         }
 
-        recyclerView.adapter = adapter
+        binding.recyclerView.adapter = adapter
 
         binding.fab.setOnClickListener { fabView ->
             fabView.findNavController().navigate(

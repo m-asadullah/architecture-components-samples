@@ -20,7 +20,8 @@ import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import com.android.samples.donuttracker.databinding.ActivityMainBinding
+import com.android.samples.donutcreator.R
+import com.android.samples.donutcreator.databinding.ActivityMainBinding
 
 /**
  * Main activity class. Not much happens here, just some basic UI setup.

@@ -20,7 +20,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.android.samples.donuttracker.databinding.DonutItemBinding
+import com.android.samples.donutcreator.R
+import com.android.samples.donutcreator.databinding.DonutItemBinding
 
 /**
  * The adapter used by the RecyclerView to display the current list of donuts
