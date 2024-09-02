@@ -111,13 +111,13 @@ class SearchViewModel @Inject constructor(repoRepository: RepoRepository) : View
             nextPageLiveData?.observeForever(this)
         }
 
-        override fun onChanged(result: Resource<Boolean>?) {
-            if (result == null) {
+        override fun onChanged(value: Resource<Boolean>?) {
+            if (value == null) {
                 reset()
             } else {
-                when (result.status) {
+                when (value.status) {
                     Status.SUCCESS -> {
-                        _hasMore = result.data == true
+                        _hasMore = value.data == true
                         unregister()
                         loadMoreState.setValue(
                             LoadMoreState(
@@ -132,7 +132,7 @@ class SearchViewModel @Inject constructor(repoRepository: RepoRepository) : View
                         loadMoreState.setValue(
                             LoadMoreState(
                                 isRunning = false,
-                                errorMessage = result.message
+                                errorMessage = value.message
                             )
                         )
                     }
