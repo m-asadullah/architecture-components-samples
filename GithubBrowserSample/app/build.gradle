@@ -50,6 +50,7 @@ android {
     buildFeatures {
         dataBinding = true
         //navigation = true
+        buildConfig = true
     }
 
     compileOptions {
