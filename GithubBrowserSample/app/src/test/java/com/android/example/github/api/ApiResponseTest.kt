@@ -19,6 +19,7 @@ package com.android.example.github.api
 import okhttp3.Headers.Companion.headersOf
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.ResponseBody
+import okhttp3.ResponseBody.Companion.toResponseBody
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.nullValue
 import org.hamcrest.MatcherAssert.assertThat
@@ -74,7 +75,7 @@ class ApiResponseTest {
     fun error() {
         val errorResponse = Response.error<String>(
             400,
-            ResponseBody.create("application/txt".toMediaTypeOrNull(), "blah")
+            "blah".toResponseBody("application/txt".toMediaTypeOrNull())
         )
         val (errorMessage) = ApiResponse.create<String>(errorResponse) as ApiErrorResponse<String>
         assertThat<String>(errorMessage, `is`("blah"))
