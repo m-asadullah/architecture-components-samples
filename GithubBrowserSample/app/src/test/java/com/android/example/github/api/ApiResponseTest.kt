@@ -16,7 +16,8 @@
 
 package com.android.example.github.api
 
-import okhttp3.MediaType
+import okhttp3.Headers.Companion.headersOf
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.ResponseBody
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.nullValue
@@ -48,7 +49,7 @@ class ApiResponseTest {
         val link =
             "<https://api.github.com/search/repositories?q=foo&page=2>; rel=\"next\"," +
                     " <https://api.github.com/search/repositories?q=foo&page=34>; rel=\"last\""
-        val headers = okhttp3.Headers.of("link", link)
+        val headers = headersOf("link", link)
         val response = ApiResponse.create<String>(Response.success("foo", headers))
         assertThat<Int>((response as ApiSuccessResponse).nextPage, `is`(2))
     }
@@ -56,7 +57,7 @@ class ApiResponseTest {
     @Test
     fun badPageNumber() {
         val link = "<https://api.github.com/search/repositories?q=foo&page=dsa>; rel=\"next\""
-        val headers = okhttp3.Headers.of("link", link)
+        val headers = headersOf("link", link)
         val response = ApiResponse.create<String>(Response.success("foo", headers))
         assertThat<Int>((response as ApiSuccessResponse).nextPage, nullValue())
     }
@@ -64,7 +65,7 @@ class ApiResponseTest {
     @Test
     fun badLinkHeader() {
         val link = "<https://api.github.com/search/repositories?q=foo&page=dsa>; relx=\"next\""
-        val headers = okhttp3.Headers.of("link", link)
+        val headers = headersOf("link", link)
         val response = ApiResponse.create<String>(Response.success("foo", headers))
         assertThat<Int>((response as ApiSuccessResponse).nextPage, nullValue())
     }
@@ -73,7 +74,7 @@ class ApiResponseTest {
     fun error() {
         val errorResponse = Response.error<String>(
             400,
-            ResponseBody.create(MediaType.parse("application/txt"), "blah")
+            ResponseBody.create("application/txt".toMediaTypeOrNull(), "blah")
         )
         val (errorMessage) = ApiResponse.create<String>(errorResponse) as ApiErrorResponse<String>
         assertThat<String>(errorMessage, `is`("blah"))
