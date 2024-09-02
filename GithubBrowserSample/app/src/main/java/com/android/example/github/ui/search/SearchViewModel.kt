@@ -50,7 +50,7 @@ class SearchViewModel @Inject constructor(repoRepository: RepoRepository) : View
         get() = nextPageHandler.loadMoreState
 
     fun setQuery(originalInput: String) {
-        val input = originalInput.toLowerCase(Locale.getDefault()).trim()
+        val input = originalInput.lowercase(Locale.getDefault()).trim()
         if (input == _query.value) {
             return
         }
