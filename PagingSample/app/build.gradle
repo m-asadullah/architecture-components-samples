@@ -13,69 +13,64 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-kapt'
+plugins {
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.kapt)
+}
 
 android {
-    compileSdkVersion build_versions.compile_sdk
+    namespace "paging.android.example.com.pagingsample"
+    compileSdkVersion libs.versions.compileSdk.get().toInteger()
+
     defaultConfig {
         applicationId "paging.android.example.com.pagingsample"
-        minSdkVersion build_versions.min_sdk
-        targetSdkVersion build_versions.target_sdk
+        minSdkVersion libs.versions.minSdk.get().toInteger()
+        targetSdkVersion libs.versions.targetSdk.get().toInteger()
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
-
     buildFeatures {
         viewBinding = true
+        buildConfig = true
     }
-
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-
     kotlinOptions {
         jvmTarget = "1.8"
         freeCompilerArgs += ["-Xopt-in=kotlin.RequiresOptIn"]
     }
-
     packagingOptions {
         pickFirst "META-INF/AL2.0"
         pickFirst "META-INF/LGPL2.1"
     }
 }
-
 dependencies {
-    implementation deps.app_compat
-    implementation deps.fragment.runtime_ktx
-    implementation deps.recyclerview
-    implementation deps.cardview
-    implementation deps.lifecycle.runtime
-    implementation deps.paging_runtime
-    implementation deps.kotlin.stdlib
-
-    implementation deps.coroutines.android
-
-    kapt deps.room.compiler
-    implementation deps.room.runtime
-    implementation deps.room.paging
-
+    implementation libs.androidx.appcompat
+    implementation libs.androidx.fragment.ktx
+    implementation libs.androidx.recyclerview
+    implementation libs.androidx.cardview
+    implementation libs.androidx.lifecycle.runtime
+    implementation libs.androidx.paging.runtime
+    implementation libs.jetbrains.kotlin.stdlib.jdk7
+    implementation libs.jetbrains.kotlinx.coroutines.android
+    kapt libs.androidx.room.compiler
+    implementation libs.androidx.room.runtime
+    implementation libs.androidx.room.paging
     // Android Testing Support Library's runner and rules
-    androidTestImplementation deps.atsl.core
-    androidTestImplementation deps.atsl.ext_junit
-    androidTestImplementation deps.atsl.runner
-    androidTestImplementation deps.coroutines.test
-    androidTestImplementation deps.truth
-    androidTestImplementation deps.espresso.contrib
+    androidTestImplementation libs.androidx.test.core
+    androidTestImplementation libs.androidx.test.ext.junit.ktx
+    androidTestImplementation libs.androidx.test.runner
+    androidTestImplementation libs.jetbrains.kotlinx.coroutines.test
+    androidTestImplementation libs.google.truth
+    androidTestImplementation libs.androidx.test.espresso.contrib
 }
