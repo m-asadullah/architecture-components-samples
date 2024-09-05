@@ -33,7 +33,6 @@ import kotlinx.coroutines.launch
 
 class BenchmarkActivity : AppCompatActivity() {
     val testExecutor = TestExecutor()
-
     @VisibleForTesting
     lateinit var binding: ActivityBenchmarkBinding
         private set
@@ -68,7 +67,7 @@ class BenchmarkActivity : AppCompatActivity() {
 class MockPagingSource : PagingSource<Int, RedditPost>() {
     private fun generatePost(): RedditPost {
         val title = List(10) { (0..100).random() }.joinToString("")
-        return RedditPost(null, "name", title, 1, "author", "androiddev", 0, System.currentTimeMillis(), null, null)
+        return RedditPost("name", title, 1, "author", "androiddev", 0, System.currentTimeMillis(), null, null)
     }
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, RedditPost> {
