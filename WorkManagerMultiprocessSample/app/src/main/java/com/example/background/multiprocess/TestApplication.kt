@@ -21,8 +21,8 @@ import androidx.work.Configuration
 
 class TestApplication : Application(), Configuration.Provider {
 
-    override fun getWorkManagerConfiguration() =
-        Configuration.Builder()
+    override val workManagerConfiguration: Configuration
+        get() = Configuration.Builder()
             .setDefaultProcessName("com.example.background.multiprocess")
             .setMinimumLoggingLevel(android.util.Log.DEBUG)
             .build()
