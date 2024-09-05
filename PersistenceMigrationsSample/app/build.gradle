@@ -1,32 +1,33 @@
 /*
- * Copyright (C) 2017 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *        http://www.apache.org/licenses/LICENSE-2.0
- *
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
- */
-
-apply plugin: 'com.android.application'
+* Copyright (C) 2017 The Android Open Source Project
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+*        http://www.apache.org/licenses/LICENSE-2.0
+*
+*  Unless required by applicable law or agreed to in writing, software
+*  distributed under the License is distributed on an "AS IS" BASIS,
+*  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+*  See the License for the specific language governing permissions and
+*  limitations under the License.
+*/
+plugins {
+    alias(libs.plugins.android.application)
+}
 
 android {
-    compileSdkVersion build_versions.compile_sdk
+    namespace "com.example.android.persistence.migrations"
+    compileSdkVersion libs.versions.compileSdk.get().toInteger()
 
     defaultConfig {
         applicationId "com.example.android.persistence.migration"
-        minSdkVersion build_versions.min_sdk
-        targetSdkVersion build_versions.target_sdk
+        minSdkVersion libs.versions.minSdk.get().toInteger()
+        targetSdkVersion libs.versions.targetSdk.get().toInteger()
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-
         // used by Room, to test migrations
         javaCompileOptions {
             annotationProcessorOptions {
@@ -34,33 +35,29 @@ android {
             }
         }
     }
-
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-
     // used by Room, to test migrations
     sourceSets {
         androidTest.assets.srcDirs += files("$projectDir/schemas".toString())
-
         // used by the room flavors to avoid duplication
         room.java.srcDirs += "src/room_common/java"
         room2.java.srcDirs += "src/room_common/java"
         room3.java.srcDirs += "src/room_common/java"
-
         androidTest.java.srcDirs += "src/androidTestRoom_Common/java"
     }
-
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
+    buildFeatures {
+        buildConfig = true
+    }
     flavorDimensions "db"
-
     productFlavors {
         sqlite {
             // Uses SQLiteOpenHelper and traditional SQLite interfaces. Database version 1
@@ -81,38 +78,32 @@ android {
         }
     }
 }
-
 dependencies {
-    implementation deps.arch_core.runtime
-    implementation deps.app_compat
-    implementation deps.material
-    implementation deps.room.runtime
-    annotationProcessor deps.room.compiler
-
+    implementation libs.androidx.arch.core.runtime
+    implementation libs.androidx.appcompat
+    implementation libs.google.android.material
+    implementation libs.androidx.room.runtime
+    annotationProcessor libs.androidx.room.compiler
     // Dependencies for local unit tests
-    testImplementation deps.junit
-    testImplementation deps.mockito.all
-    testImplementation deps.hamcrest
-
+    testImplementation libs.junit
+    testImplementation libs.mockito.all
+    testImplementation libs.hamcrest.all
     // Android Testing Support Library's runner and rules
-    androidTestImplementation deps.atsl.ext_junit
-    androidTestImplementation deps.atsl.runner
-    androidTestImplementation deps.atsl.rules
-    androidTestImplementation deps.room.testing
-    androidTestImplementation deps.arch_core.testing
-
+    androidTestImplementation libs.androidx.test.ext.junit
+    androidTestImplementation libs.androidx.test.runner
+    androidTestImplementation libs.androidx.test.rules
+    androidTestImplementation libs.androidx.room.testing
+    androidTestImplementation libs.androidx.arch.core.testing
     // Dependencies for Android unit tests
-    androidTestImplementation deps.junit
-    androidTestImplementation deps.mockito.core, { exclude group: 'net.bytebuddy' }
-    androidTestImplementation deps.dexmaker
-
+    androidTestImplementation libs.junit
+    androidTestImplementation libs.mockito.core, { exclude group: 'net.bytebuddy' }
+    androidTestImplementation libs.linkedin.dexmaker.mockito
     // Espresso UI Testing
-    androidTestImplementation deps.espresso.core
-    androidTestImplementation deps.espresso.contrib
-    androidTestImplementation deps.espresso.intents
-
+    androidTestImplementation libs.androidx.test.espresso.core
+    androidTestImplementation libs.androidx.test.espresso.contrib
+    androidTestImplementation libs.androidx.test.espresso.intents
     // Resolve conflicts between main and test APK:
-    androidTestImplementation deps.annotations
-    androidTestImplementation deps.app_compat
-    androidTestImplementation deps.material
+    implementation libs.androidx.annotation
+    androidTestImplementation libs.androidx.appcompat
+    androidTestImplementation libs.google.android.material
 }

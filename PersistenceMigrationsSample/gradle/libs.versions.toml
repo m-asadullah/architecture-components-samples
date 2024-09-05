@@ -1,0 +1,45 @@
+[versions]
+agp = "8.6.0"
+#
+minSdk = "21"
+compileSdk = "34"
+targetSdk = "34"
+#
+androidxAnnotation = "1.8.2"
+androidxAppcompat = "1.7.0"
+androidxArchCore = "2.2.0"
+androidxRoom = "2.6.1"
+androidxTestEspresso = "3.6.1"
+androidxTestExtJunit = "1.2.1"
+androidxTestRules = "1.6.1"
+androidxTestRunner = "1.6.2"
+googleAndroidMaterial = "1.12.0"
+hamcrestAll = "1.3"
+junit = "4.13.2"
+linkedinDexmakerMockito = "2.28.4"
+mockitoAll = "1.10.19"
+mockitoCore = "5.13.0"
+
+[libraries]
+androidx-annotation = { group = "androidx.annotation", name = "annotation", version.ref = "androidxAnnotation" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "androidxAppcompat" }
+androidx-arch-core-runtime = { group = "androidx.arch.core", name = "core-runtime", version.ref = "androidxArchCore" }
+androidx-arch-core-testing = { group = "androidx.arch.core", name = "core-testing", version.ref = "androidxArchCore" }
+androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "androidxRoom" }
+androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "androidxRoom" }
+androidx-room-testing = { group = "androidx.room", name = "room-testing", version.ref = "androidxRoom" }
+androidx-test-espresso-contrib = { group = "androidx.test.espresso", name = "espresso-contrib", version.ref = "androidxTestEspresso" }
+androidx-test-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "androidxTestEspresso" }
+androidx-test-espresso-intents = { group = "androidx.test.espresso", name = "espresso-intents", version.ref = "androidxTestEspresso" }
+androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidxTestExtJunit" }
+androidx-test-rules = { group = "androidx.test", name = "rules", version.ref = "androidxTestRules" }
+androidx-test-runner = { group = "androidx.test", name = "runner", version.ref = "androidxTestRunner" }
+google-android-material = { group = "com.google.android.material", name = "material", version.ref = "googleAndroidMaterial" }
+hamcrest-all = { group = "org.hamcrest", name = "hamcrest-all", version.ref = "hamcrestAll" }
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+linkedin-dexmaker-mockito = { group = "com.linkedin.dexmaker", name = "dexmaker-mockito", version.ref = "linkedinDexmakerMockito" }
+mockito-all = { group = "org.mockito", name = "mockito-all", version.ref = "mockitoAll" }
+mockito-core = { group = "org.mockito", name = "mockito-core", version.ref = "mockitoCore" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
