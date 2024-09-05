@@ -1,20 +1,19 @@
-apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-kapt'
+plugins {
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.kapt)
+}
 
 android {
-    compileSdkVersion build_versions.compile_sdk
+    namespace "com.android.example.lib"
+    compileSdkVersion libs.versions.compileSdk.get().toInteger()
 
     defaultConfig {
-        minSdkVersion 21
-        targetSdkVersion build_versions.target_sdk
+        minSdkVersion libs.versions.minSdk.get().toInteger()
+        targetSdkVersion libs.versions.targetSdk.get().toInteger()
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-    }
-
-    buildFeatures {
-        viewBinding = true
     }
 
     compileOptions {
@@ -26,27 +25,30 @@ android {
         jvmTarget = "1.8"
         freeCompilerArgs += ["-Xopt-in=kotlin.RequiresOptIn"]
     }
+
+    buildFeatures {
+        viewBinding = true
+        buildConfig = true
+    }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-
-    kapt deps.room.compiler
-    kapt deps.glide.compiler
-
-    implementation deps.constraint_layout
-    implementation deps.app_compat
-    implementation deps.activity.activity_ktx
-    implementation deps.recyclerview
-    implementation deps.cardview
-    implementation deps.material
-    implementation deps.room.runtime
-    implementation deps.lifecycle.livedata_ktx
-    implementation deps.lifecycle.runtime
-    implementation deps.paging_runtime
-    implementation deps.kotlin.stdlib
-    implementation deps.retrofit.runtime
-    implementation deps.retrofit.gson
-    implementation deps.okhttp_logging_interceptor
-    implementation deps.glide.runtime
+    kapt libs.androidx.room.compiler
+    kapt libs.github.bumptech.glide.compiler
+    implementation libs.androidx.constraintlayout
+    implementation libs.androidx.appcompat
+    implementation libs.androidx.activity.ktx
+    implementation libs.androidx.recyclerview
+    implementation libs.androidx.cardview
+    implementation libs.google.android.material
+    implementation libs.androidx.room.runtime
+    implementation libs.androidx.lifecycle.livedata.ktx
+    implementation libs.androidx.lifecycle.runtime
+    implementation libs.androidx.paging.runtime
+    implementation libs.jetbrains.kotlin.stdlib.jdk7
+    implementation libs.squareup.retrofit2.retrofit.mock
+    implementation libs.squareup.retrofit2.converter.gson
+    implementation libs.squareup.okhttp3.logging.interceptor
+    implementation libs.github.bumptech.glide
 }

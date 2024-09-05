@@ -1,13 +1,18 @@
-apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-kapt'
-apply plugin: 'androidx.benchmark'
+plugins {
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.androidx.benchmark)
+}
 
 android {
-    compileSdkVersion build_versions.compile_sdk
+    namespace "com.example.benchmark"
+    compileSdkVersion libs.versions.compileSdk.get().toInteger()
+
     defaultConfig {
-        minSdkVersion 21
-        targetSdkVersion build_versions.target_sdk
+        testInstrumentationRunnerArguments mode: 'none'
+        minSdkVersion libs.versions.minSdk.get().toInteger()
+        targetSdkVersion libs.versions.targetSdk.get().toInteger()
         versionCode 1
         versionName "1.0"
 
@@ -17,14 +22,9 @@ android {
         //   * Sampled
         //   * Method
         // See full descriptions of available options at: d.android.com/benchmark#profiling
-        testInstrumentationRunnerArgument 'androidx.benchmark.profiling.mode', 'none'
     }
 
     testBuildType = "release"
-
-    buildFeatures {
-        viewBinding = true
-    }
 
     buildTypes {
         release {
@@ -40,24 +40,28 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
-
     kotlinOptions {
         jvmTarget = "1.8"
         freeCompilerArgs += ["-Xopt-in=kotlin.RequiresOptIn"]
+    }
+
+    buildFeatures {
+        viewBinding = true
+        buildConfig = true
     }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(path: ':lib')
+    
+    implementation libs.androidx.appcompat
+    implementation libs.androidx.paging.runtime
 
-    implementation deps.app_compat
-    implementation deps.paging_runtime
-
-    androidTestImplementation deps.atsl.ext_junit
-    androidTestImplementation deps.atsl.runner
-    androidTestImplementation deps.atsl.rules
-    androidTestImplementation deps.arch_core.testing
-    androidTestImplementation deps.benchmark
-    androidTestImplementation deps.junit
+    androidTestImplementation libs.androidx.test.ext.junit.ktx
+    androidTestImplementation libs.androidx.test.runner
+    androidTestImplementation libs.androidx.test.rules
+    androidTestImplementation libs.androidx.arch.core.testing
+    androidTestImplementation libs.androidx.benchmark.junit4
+    androidTestImplementation libs.junit
 }
