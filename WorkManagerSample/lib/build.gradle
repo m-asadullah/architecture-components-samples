@@ -13,23 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
+plugins {
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.android)
+}
 
 android {
-    compileSdkVersion build_versions.compile_sdk
+    namespace "com.example.background.library"
+    compileSdkVersion libs.versions.compileSdk.get().toInteger()
 
     defaultConfig {
         vectorDrawables {
             useSupportLibrary true
         }
         // Switching to Renderscript support provided by framework.
-        minSdkVersion 21
-        targetSdkVersion build_versions.target_sdk
+        minSdkVersion libs.versions.minSdk.get().toInteger()
+        targetSdkVersion libs.versions.targetSdk.get().toInteger()
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        //Android RenderScript framework
+        renderscriptTargetApi 21
+        renderscriptSupportModeEnabled true
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -41,25 +46,24 @@ android {
 }
 
 dependencies {
+    implementation libs.jetbrains.kotlin.stdlib.jdk7
+    implementation libs.androidx.work.runtime.ktx
+    implementation libs.androidx.appcompat
+    implementation libs.jetbrains.kotlinx.coroutines.android
+    implementation libs.androidx.cardview
+    implementation libs.google.android.material
+    implementation libs.androidx.constraintlayout
+    implementation libs.squareup.retrofit2.retrofit.mock
+    implementation libs.squareup.retrofit2.converter.gson
+    implementation libs.squareup.okhttp3.logging.interceptor
+    //implementation libs.github.bumptech.glide.compiler
 
-    implementation deps.kotlin.stdlib
-    implementation deps.work.runtime_ktx
-    implementation deps.app_compat
-    implementation deps.coroutines.android
-    implementation deps.cardview
-    implementation deps.material
-    implementation deps.constraint_layout
-    implementation deps.retrofit.runtime
-    implementation deps.retrofit.gson
-    implementation deps.okhttp_logging_interceptor
-    implementation deps.glide.runtime
+    testImplementation libs.junit
 
-    testImplementation deps.junit
+    androidTestImplementation libs.androidx.test.ext.junit.ktx
+    androidTestImplementation libs.androidx.test.runner
+    androidTestImplementation libs.androidx.test.rules
+    androidTestImplementation libs.jetbrains.kotlinx.coroutines.test
 
-    androidTestImplementation deps.atsl.ext_junit_ktx
-    androidTestImplementation deps.atsl.runner
-    androidTestImplementation deps.atsl.rules
-    androidTestImplementation deps.coroutines.test
-
-    androidTestImplementation deps.work.testing
+    androidTestImplementation libs.androidx.work.testing
 }
