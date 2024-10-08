@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+ <component name="GradleMigrationSettings" migrationversion="1" />
+ <component name="GradleSettings">
+  <option name="linkedExternalProjectsSettings"> <gradleprojectsettings>
+    <option name="testRunner" value="CHOOSE_PER_TEST"></option>
+    <option name="externalProjectPath" value="$PROJECT_DIR$"></option>
+    <option name="gradleJvm" value="jbr-17"></option>
+    <option name="modules"> <set>
+      <option value="$PROJECT_DIR$"></option>
+      <option value="$PROJECT_DIR$/app"></option>
+     </set> </option>
+    <option name="resolveExternalAnnotations" value="false"></option>
+   </gradleprojectsettings> </option>
+ </component>
+</project>
