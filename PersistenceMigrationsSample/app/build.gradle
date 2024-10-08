@@ -19,7 +19,7 @@ plugins {
 
 android {
     namespace "com.example.android.persistence.migrations"
-    compileSdkVersion libs.versions.compileSdk.get().toInteger()
+    compileSdk libs.versions.compileSdk.get().toInteger()
 
     defaultConfig {
         applicationId "com.example.android.persistence.migration"
@@ -78,6 +78,7 @@ android {
         }
     }
 }
+
 dependencies {
     implementation libs.androidx.arch.core.runtime
     implementation libs.androidx.appcompat

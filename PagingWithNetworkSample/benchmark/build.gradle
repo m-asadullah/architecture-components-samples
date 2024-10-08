@@ -1,13 +1,14 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.compose.compiler)
     alias(libs.plugins.kotlin.kapt)
     alias(libs.plugins.androidx.benchmark)
 }
 
 android {
     namespace "com.example.benchmark"
-    compileSdkVersion libs.versions.compileSdk.get().toInteger()
+    compileSdk libs.versions.compileSdk.get().toInteger()
 
     defaultConfig {
         testInstrumentationRunnerArguments mode: 'none'

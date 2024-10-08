@@ -1,5 +1,5 @@
 [versions]
-agp = "8.6.0"
+agp = "8.7.0"
 #
 minSdk = "21"
 compileSdk = "34"
@@ -9,8 +9,8 @@ androidxAnnotation = "1.8.2"
 androidxAppcompat = "1.7.0"
 androidxArchCoreTesting = "2.2.0"
 androidxCardview = "1.0.0"
-androidxFragment = "1.8.2"
-androidxLifecycle = "2.8.4"
+androidxFragment = "1.8.4"
+androidxLifecycle = "2.8.6"
 androidxRoom = "2.6.1"
 androidxTestCore = "1.6.1"
 androidxTestEspresso = "3.6.1"

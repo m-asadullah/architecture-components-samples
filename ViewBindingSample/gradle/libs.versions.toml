@@ -1,17 +1,17 @@
 [versions]
-agp = "8.6.0"
-kotlin = "1.9.25"
+agp = "8.7.0"
+kotlin = "2.0.20"
 #
 minSdk = "21"
 compileSdk = "34"
 targetSdk = "34"
 #
-androidxActivity = "1.9.1"
+androidxActivity = "1.9.2"
 androidxAppcompat = "1.7.0"
 androidxArchCoreTesting = "2.2.0"
 androidxConstraintlayout = "2.1.4"
 androidxCore = "1.13.1"
-androidxLifecycle = "2.8.4"
+androidxLifecycle = "2.8.6"
 androidxTestEspresso = "3.6.1"
 androidxTestExtJunit = "1.2.1"
 androidxTestRules = "1.6.1"
@@ -40,4 +40,5 @@ junit = { group = "junit", name = "junit", version.ref = "junit" }
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }

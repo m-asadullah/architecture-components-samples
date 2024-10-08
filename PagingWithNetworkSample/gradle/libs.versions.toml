@@ -1,19 +1,19 @@
 [versions]
-agp = "8.6.0"
-kotlin = "1.9.25"
+agp = "8.7.0"
+kotlin = "2.0.20"
 #
 minSdk = "21"
 compileSdk = "34"
 targetSdk = "34"
 #
-androidxActivity = "1.9.1"
+androidxActivity = "1.9.2"
 androidxAppcompat = "1.7.0"
 androidxArchCoreTesting = "2.2.0"
-androidxBenchmark = "1.3.0"
+androidxBenchmark = "1.3.2"
 androidxCardview = "1.0.0"
 androidxConstraintlayout = "2.1.4"
-androidxFragment = "1.8.2"
-androidxLifecycle = "2.8.4"
+androidxFragment = "1.8.4"
+androidxLifecycle = "2.8.6"
 androidxPaging = "3.3.2"
 androidxRecyclerview = "1.3.2"
 androidxRoom = "2.6.1"
@@ -24,7 +24,7 @@ androidxTestRules = "1.6.1"
 androidxTestRunner = "1.6.2"
 githubBumptechGlide = "4.16.0"
 googleAndroidMaterial = "1.12.0"
-jetbrainsKotlinxCoroutines = "1.8.1"
+jetbrainsKotlinxCoroutines = "1.9.0"
 junit = "4.13.2"
 squareupOkhttp3LoggingInterceptor = "4.12.0"
 squareupRetrofit2 = "2.11.0"
@@ -65,5 +65,6 @@ squareup-retrofit2-retrofit-mock = { group = "com.squareup.retrofit2", name = "r
 android-application = { id = "com.android.application", version.ref = "agp" }
 android-library = { id = "com.android.library", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 androidx-benchmark = { id = "androidx.benchmark", version.ref = "androidxBenchmark" }

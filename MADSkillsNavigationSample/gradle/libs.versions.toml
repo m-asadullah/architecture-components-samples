@@ -1,6 +1,6 @@
 [versions]
-agp = "8.6.0"
-kotlin = "1.9.25"
+agp = "8.7.0"
+kotlin = "2.0.20"
 #
 minSdk = "21"
 compileSdk = "34"
@@ -9,12 +9,12 @@ targetSdk = "34"
 androidxAppcompat = "1.7.0"
 androidxConstraintlayout = "2.1.4"
 androidxCore = "1.13.1"
-androidxFragment = "1.8.2"
-androidxLifecycleLivedata = "2.8.4"
-androidxNavigation = "2.7.7"
+androidxFragment = "1.8.4"
+androidxLifecycleLivedata = "2.8.6"
+androidxNavigation = "2.8.2"
 androidxRoom = "2.6.1"
 googleAndroidMaterial = "1.12.0"
-kotlinxCoroutines = "1.8.1"
+kotlinxCoroutines = "1.9.0"
 pinterestKtlint = "0.50.0"
 
 [libraries]
@@ -39,6 +39,7 @@ pinterest-ktlint = { group = "com.pinterest", name = "ktlint", version.ref = "pi
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
 kotlin-allopen = { id = "org.jetbrains.kotlin.plugin.allopen", version.ref = "kotlin" }

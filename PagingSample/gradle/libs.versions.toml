@@ -1,6 +1,6 @@
 [versions]
-agp = "8.6.0"
-kotlin = "1.9.25"
+agp = "8.7.0"
+kotlin = "2.0.20"
 #
 minSdk = "21"
 compileSdk = "34"
@@ -8,8 +8,8 @@ targetSdk = "34"
 #
 androidxAppcompat = "1.7.0"
 androidxCardview = "1.0.0"
-androidxFragment = "1.8.2"
-androidxLifecycle = "2.8.4"
+androidxFragment = "1.8.4"
+androidxLifecycle = "2.8.6"
 androidxPaging = "3.3.2"
 androidxRecyclerview = "1.3.2"
 androidxRoom = "2.6.1"
@@ -18,7 +18,7 @@ androidxTestEspresso = "3.6.1"
 androidxTestExtJunit = "1.2.1"
 androidxTestRunner = "1.6.2"
 googleTruth = "1.4.4"
-jetbrainsKotlinxCoroutines = "1.8.1"
+jetbrainsKotlinxCoroutines = "1.9.0"
 
 [libraries]
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "androidxAppcompat" }
@@ -42,4 +42,5 @@ jetbrains-kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "k
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }

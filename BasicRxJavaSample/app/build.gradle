@@ -4,7 +4,7 @@ plugins {
 
 android {
     namespace 'com.example.android.persistence'
-    compileSdkVersion libs.versions.compileSdk.get().toInteger()
+    compileSdk libs.versions.compileSdk.get().toInteger()
 
     defaultConfig {
         applicationId "com.example.android.persistence"
@@ -70,7 +70,7 @@ dependencies {
     androidTestImplementation libs.androidx.test.espresso.intents
 
     // Resolve conflicts between main and test APK:
-    androidTestImplementation libs.androidx.annotation
-    androidTestImplementation libs.androidx.appcompat
+    implementation libs.androidx.annotation
+    implementation libs.androidx.appcompat
     androidTestImplementation libs.google.android.material
 }

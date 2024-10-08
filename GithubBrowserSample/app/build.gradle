@@ -16,6 +16,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.compose.compiler)
     alias(libs.plugins.kotlin.kapt)
     alias(libs.plugins.kotlin.allopen)
     alias(libs.plugins.androidx.navigation.safeargs)
@@ -27,7 +28,7 @@ allOpen {
 }
 android {
     namespace 'com.android.example.github'
-    compileSdkVersion libs.versions.compileSdk.get().toInteger()
+    compileSdk libs.versions.compileSdk.get().toInteger()
 
     defaultConfig {
         applicationId "com.android.example.github"

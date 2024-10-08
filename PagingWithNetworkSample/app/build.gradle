@@ -16,13 +16,14 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.compose.compiler)
     alias(libs.plugins.kotlin.kapt)
     //alias(libs.plugins.androidx.benchmark)
 }
 
 android {
     namespace "com.android.example.paging.pagingwithnetwork"
-    compileSdkVersion libs.versions.compileSdk.get().toInteger()
+    compileSdk libs.versions.compileSdk.get().toInteger()
 
     defaultConfig {
         applicationId "com.android.example.paging.pagingwithnetwork"
